@@ -59,32 +59,78 @@ void ScalarConverter::convert(std::string &literal)
 
 void toChar(std::string &literal)
 {
-	char c;
-
-	c = 'o';
-	std::cout << literal << " to char: " << c << std::endl;
+	if (detectType(literal) == typechar)
+		std::cout << literal << " char: " << literal[0] << std::endl;
+	else if (detectType(literal) == typeint)
+	{
+		if (isprint(strToInt(literal)) == false)
+			std::cout << literal << " char: " << "non displayable" << std::endl;
+		else
+		{
+			char c = strToInt(literal);
+			std::cout << literal << " char: '" << c << "'" << std::endl;
+		}
+	}
+	else if ((detectType(literal) == typefloat))
+	{
+		if (isprint(strToFloat(literal)) == false)
+			std::cout << literal << " char: " << "non displayable" << std::endl;
+		else
+		{
+			char c = strToFloat(literal);
+			std::cout << literal << " char: '" << c << "'" << std::endl;
+		}
+	}
 }
 
 void toInt(std::string &literal)
 {
-	int x;
-
-	x = 42;
-	std::cout << literal << " to int: " << x << std::endl;
+	if (detectType(literal) == typechar)
+		std::cout << literal << " int: " << static_cast<int>(literal[0]) << std::endl;
+	else if (detectType(literal) == typeint)
+		std::cout << literal << " int: " << strToInt(literal) << std::endl;
+	else if ((detectType(literal) == typefloat))
+		std::cout << literal << " int: " << strToFloat(literal) << std::endl;
 }
 
 void toFloat(std::string &literal)
 {
-	float f;
-
-	f = 42.42f;
-	std::cout << literal << " to float: " << f << std::endl;
+	if (detectType(literal) == typechar)
+		std::cout << literal << " float: " << static_cast<float>(literal[0]) << ".0f" << std::endl;
+	else if (detectType(literal) == typeint)
+		std::cout << literal << " float: " << strToInt(literal) << ".0f" << std::endl;
 }
 
 void toDouble(std::string &literal)
 {
-	double d;
+	if (detectType(literal) == typechar)
+		std::cout << literal << " double: " << static_cast<double>(literal[0]) << ".0" << std::endl;
+	else if (detectType(literal) == typeint)
+		std::cout << literal << " double: " << strToInt(literal) << ".0" << std::endl;
+}
 
-	d = 42.4242;
-	std::cout << literal << " to double: " << d << std::endl;
+int strToInt(const std::string &literal)
+{
+    std::stringstream ss(literal);
+    int value = 0;
+    ss >> value;
+    if (ss.fail() || !ss.eof()) {  // si conversion échoue ou reste du texte
+        std::cerr << "strToInt fail" << std::endl;
+        return 0; // ou une valeur spéciale
+    }
+    return value;
+}
+
+float strToFloat(const std::string &literal)
+{
+	std::string s = literal;
+	s = s.substr(0, s.length() - 1);
+    std::stringstream ss(s);
+    float value = 0.0f;
+    ss >> value;
+    if (ss.fail() || !ss.eof()) {  // si conversion échoue ou reste du texte
+        std::cerr << "strToFloat fail" << std::endl;
+        return 0.0f; // ou une valeur spéciale
+    }
+    return value;
 }

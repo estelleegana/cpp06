@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>//std::cout
 #include <cctype>//isalpha
+#include <sstream>//ss
 
 enum literaltype
 {
@@ -25,3 +26,5 @@ void toChar(std::string &literal);
 void toInt(std::string &literal);
 void toFloat(std::string &literal);
 void toDouble(std::string &literal);
+int strToInt(const std::string &literal);
+float strToFloat(const std::string &literal);
