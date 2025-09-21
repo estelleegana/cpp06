@@ -1,5 +1,5 @@
 #nom de l'executable
-NAME = ex00
+NAME = convert
 
 #compilateur
 CC = c++

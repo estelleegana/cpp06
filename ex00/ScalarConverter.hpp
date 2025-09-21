@@ -16,6 +16,12 @@ enum literaltype
 class ScalarConverter
 {
 	public:
-		static literaltype detectType(std::string &str);
 		static void convert(std::string &literal);
+
 };
+
+literaltype detectType(std::string &literal);
+void toChar(std::string &literal);
+void toInt(std::string &literal);
+void toFloat(std::string &literal);
+void toDouble(std::string &literal);
