@@ -4,6 +4,7 @@
 #include <iostream>//std::cout
 #include <cctype>//isalpha
 #include <sstream>//ss
+#include <cstdlib>	//atoi
 
 enum literaltype
 {
@@ -22,9 +23,8 @@ class ScalarConverter
 };
 
 literaltype detectType(std::string &literal);
-void toChar(std::string &literal);
-void toInt(std::string &literal);
-void toFloat(std::string &literal);
-void toDouble(std::string &literal);
-int strToInt(const std::string &literal);
+void fromChar(std::string &literal);
+void fromInt(std::string &literal);
+void fromFloat(std::string &literal);
+void fromDouble(std::string &literal);
 float strToFloat(const std::string &literal);

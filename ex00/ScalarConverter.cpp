@@ -51,86 +51,68 @@ literaltype detectType(std::string &literal)
 
 void ScalarConverter::convert(std::string &literal)
 {
-	toChar(literal);
-	toInt(literal);
-	toFloat(literal);
-	toDouble(literal);
-}
-
-void toChar(std::string &literal)
-{
 	if (detectType(literal) == typechar)
-		std::cout << literal << " char: " << literal[0] << std::endl;
+		fromChar(literal);
 	else if (detectType(literal) == typeint)
-	{
-		if (isprint(strToInt(literal)) == false)
-			std::cout << literal << " char: " << "non displayable" << std::endl;
-		else
-		{
-			char c = strToInt(literal);
-			std::cout << literal << " char: '" << c << "'" << std::endl;
-		}
-	}
+		fromInt(literal);
 	else if ((detectType(literal) == typefloat))
-	{
-		if (isprint(strToFloat(literal)) == false)
-			std::cout << literal << " char: " << "non displayable" << std::endl;
-		else
-		{
-			char c = strToFloat(literal);
-			std::cout << literal << " char: '" << c << "'" << std::endl;
-		}
-	}
+		fromFloat(literal);
+	else if ((detectType(literal) == typedouble))
+		fromDouble(literal);
 }
 
-void toInt(std::string &literal)
+void fromChar(std::string &literal)
 {
-	if (detectType(literal) == typechar)
-		std::cout << literal << " int: " << static_cast<int>(literal[0]) << std::endl;
-	else if (detectType(literal) == typeint)
-		std::cout << literal << " int: " << strToInt(literal) << std::endl;
-	else if ((detectType(literal) == typefloat))
-		std::cout << literal << " int: " << strToFloat(literal) << std::endl;
+
+	std::cout << literal << " char: " << literal[0] << std::endl;
+	std::cout << literal << " int: " << static_cast<int>(literal[0]) << std::endl;
+	std::cout << literal << " float: " << static_cast<float>(literal[0]) << ".0f" << std::endl;
+	std::cout << literal << " double: " << static_cast<double>(literal[0]) << ".0" << std::endl;
 }
 
-void toFloat(std::string &literal)
+void fromInt(std::string &literal)
 {
-	if (detectType(literal) == typechar)
-		std::cout << literal << " float: " << static_cast<float>(literal[0]) << ".0f" << std::endl;
-	else if (detectType(literal) == typeint)
-		std::cout << literal << " float: " << strToInt(literal) << ".0f" << std::endl;
+	if (isprint(atoi(literal.c_str())) == false)
+		std::cout << literal << " char: " << "non displayable" << std::endl;
+	else
+		std::cout << literal << " char: '" << static_cast<char>(atoi(literal.c_str())) << "'" << std::endl;
+	std::cout << literal << " int: " << atoi(literal.c_str()) << std::endl;
+	std::cout << literal << " float: " << static_cast<float>(atoi(literal.c_str())) << ".0f" << std::endl;
+	std::cout << literal << " double: " << static_cast<double>(atoi(literal.c_str())) << ".0" << std::endl;
 }
 
-void toDouble(std::string &literal)
+void fromFloat(std::string &literal)
 {
-	if (detectType(literal) == typechar)
-		std::cout << literal << " double: " << static_cast<double>(literal[0]) << ".0" << std::endl;
-	else if (detectType(literal) == typeint)
-		std::cout << literal << " double: " << strToInt(literal) << ".0" << std::endl;
+	if (isprint(atoi(literal.c_str())) == false)
+		std::cout << literal << " char: " << "non displayable" << std::endl;
+	else
+		std::cout << literal << " char: '" << static_cast<char>(atoi(literal.c_str())) << "'" << std::endl;// 	if (detectType(literal) == typechar)
+	std::cout << literal << " int: " << atoi(literal.c_str()) << std::endl;
+	std::cout << literal << " float: " << static_cast<float>(strToFloat(literal)) << std::endl;
+	std::cout << literal << " double: " << strtod(literal.c_str(), NULL) << std::endl;
 }
 
-int strToInt(const std::string &literal)
+void fromDouble(std::string &literal)
 {
-    std::stringstream ss(literal);
-    int value = 0;
-    ss >> value;
-    if (ss.fail() || !ss.eof()) {  // si conversion échoue ou reste du texte
-        std::cerr << "strToInt fail" << std::endl;
-        return 0; // ou une valeur spéciale
-    }
-    return value;
+	if (isprint(atoi(literal.c_str())) == false)
+		std::cout << literal << " char: " << "non displayable" << std::endl;
+	else
+		std::cout << literal << " char: '" << static_cast<char>(atoi(literal.c_str())) << "'" << std::endl;// 	if (detectType(literal) == typechar)
+	std::cout << literal << " int: " << atoi(literal.c_str()) << std::endl;
+	std::cout << literal << " float: " << static_cast<float>(atof(literal.c_str())) << std::endl;
+	std::cout << literal << " double: " << strtod(literal.c_str(), NULL) << std::endl;
 }
+
+
 
 float strToFloat(const std::string &literal)
 {
-	std::string s = literal;
-	s = s.substr(0, s.length() - 1);
-    std::stringstream ss(s);
+    std::stringstream ss(literal);
     float value = 0.0f;
     ss >> value;
-    if (ss.fail() || !ss.eof()) {  // si conversion échoue ou reste du texte
-        std::cerr << "strToFloat fail" << std::endl;
-        return 0.0f; // ou une valeur spéciale
+    if (ss.fail() || !ss.eof()) {
+        std::cerr << "Erreur: conversion float échouée" << std::endl;
+        return 0.0f;
     }
     return value;
 }
