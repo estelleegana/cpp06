@@ -22,6 +22,11 @@ class ScalarConverter
 	public:
 		static void convert(std::string &literal);
 
+	//constr & destr
+	ScalarConverter();
+	ScalarConverter(const ScalarConverter &copy);
+	ScalarConverter &operator=(const ScalarConverter &autre);
+	~ScalarConverter();
 };
 
 literaltype detectType(std::string &literal);

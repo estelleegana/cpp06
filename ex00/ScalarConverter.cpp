@@ -196,3 +196,18 @@ void fromPseudoFloat(std::string &literal)
 	std::cout << "double: " << literal.substr(0, literal.size() - 1) << std::endl;
 
 }
+
+ScalarConverter::ScalarConverter() {}
+
+ScalarConverter::ScalarConverter(const ScalarConverter &copy)
+{
+	*this = copy;
+}
+
+ScalarConverter &ScalarConverter::operator=( const ScalarConverter &autre )
+{
+	(void)autre;
+    return (*this);
+}
+
+ScalarConverter::~ScalarConverter() {}
