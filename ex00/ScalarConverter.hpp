@@ -4,15 +4,17 @@
 #include <iostream>//std::cout
 #include <cctype>//isalpha
 #include <sstream>//ss
-#include <cstdlib>	//atoi
+#include <cstdlib>//atoi, atol, atof
+#include <climits>//INT_MIN et INT_MAX (overflow)
+#include <stdexcept>//std::invalid_argument et std::overflow_error
 
 enum literaltype
 {
-	typechar,//0
-	typeint,//1
-	typefloat,//2
-	typedouble,//3
-	typeinvalid//4
+	TYPECHAR,//0
+	TYPEINT,//1
+	TYPEFLOAT,//2
+	TYPEDOUBLE,//3
+	TYPEINVALID//4
 };
 
 class ScalarConverter
@@ -23,8 +25,10 @@ class ScalarConverter
 };
 
 literaltype detectType(std::string &literal);
+void print_literaltype(literaltype lt);
 void fromChar(std::string &literal);
 void fromInt(std::string &literal);
 void fromFloat(std::string &literal);
 void fromDouble(std::string &literal);
-float strToFloat(const std::string &literal);
+void fromPseudoFloat(std::string &literal);
+void fromPseudoDouble(std::string &literal);
