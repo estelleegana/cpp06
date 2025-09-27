@@ -1,9 +1,12 @@
 #include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
 
 int main()
 {
-	std::cout << "base ok" << std::endl;
+	Base *bbb = generate();
+
+	identify(bbb);
+	identify(*bbb);
+
+	delete bbb;
+	return 0;
 }
